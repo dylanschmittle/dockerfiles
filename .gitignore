@@ -1,2 +1,7 @@
 
 scripts/bin/
+
+*/p10k.zsh
+*/zsh-install.sh
+!scripts/p10k.zsh
+!scripts/zsh-install.sh

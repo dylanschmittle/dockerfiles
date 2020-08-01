@@ -1,7 +1,7 @@
 #!/bin/sh
 # Cant Get Keyrings On Home internet, blocked by ISP
 # sudo protonvpn -f c
-docker login
+docker login > /dev/null
 if [[ -z $1 ]]; then
   for entry in "$PWD"/*
   do

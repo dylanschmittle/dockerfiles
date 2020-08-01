@@ -30,4 +30,5 @@ ARG XBPS_ARCH=${ARCH}-${MUSL}
 ENV XBPS_ARCH=$XBPS_ARCH
 
 COPY --from=void-build /void /
+RUN xbps-install -Syu && xbps-install zsh 
 CMD ["sh"]

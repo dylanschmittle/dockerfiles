@@ -39,7 +39,6 @@ f2 () {
 
 f3 () {
   mkdir bin && cd bin
-  wget -q https://raw.githubusercontent.com/deluan/zsh-in-docker/master/zsh-in-docker.sh
   wget -q https://raw.githubusercontent.com/ZZROTDesign/docker-clean/v2.0.4/docker-clean
   wget -q https://github.com/genuinetools/img/releases/download/v0.5.10/img-linux-amd64
   wget -qc https://github.com/jesseduffield/lazydocker/releases/download/v0.9/lazydocker_0.9_Linux_x86_64.tar.gz -O - | tar -xz
@@ -52,7 +51,7 @@ f3 () {
 
 echo "Enter Choice:
 
-1) Run a ephemeral container
+1) Run a container
 2) List local images
 3) Download tools"
 
