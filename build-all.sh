@@ -1,4 +1,6 @@
 #!/bin/sh
+# Cant Get Keyrings On Home internet, blocked by ISP
+# sudo protonvpn -f c
 docker login
 if [[ -z $1 ]]; then
   for entry in "$PWD"/*
@@ -16,12 +18,10 @@ for entry in "$PWD"/*
 do
   if [[ $entry != "$PWD/build-all.sh" && $entry != "$PWD/README.md" && $entry != "$PWD/scripts" ]]; then
     cd $entry
-    echo "## BUILDING $entry ##"
     ../scripts/build.sh $1 &
     cd ..
   fi
 done
-
 
 
 

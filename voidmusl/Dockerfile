@@ -1,36 +1,33 @@
-# 1) use alpine to generate a void environment
-FROM alpine:3.12 as stage0
-ARG REPOSITORY=https://alpha.de.repo.voidlinux.org
-ARG ARCH=x86_64
-#COPY keys/* /target/var/db/xbps/keys/
-RUN apk add ca-certificates curl && \
-  curl ${REPOSITORY}/static/xbps-static-latest.$(uname -m)-musl.tar.xz | \
-    tar Jx && \
-  XBPS_ARCH=${ARCH} xbps-install.static -yMU \
-    --repository=${REPOSITORY}/current \
-    --repository=${REPOSITORY}/current/musl \
-    -r /target \
-    base-minimal
+ 
+FROM alpine as void-build
 
-# 2) using void to generate the final build
-FROM scratch as stage1
-ARG REPOSITORY=https://alpha.de.repo.voidlinux.org
-ARG ARCH=x86_64
-ARG BASEPKG=base-minimal
-COPY --from=stage0 /target /
-#COPY keys/* /target/var/db/xbps/keys/
-RUN xbps-reconfigure -a && \
-  mkdir -p /target/var/cache && ln -s /var/cache/xbps /target/var/cache/xbps && \
-  XBPS_ARCH=${ARCH} xbps-install -yMU \
-    --repository=${REPOSITORY}/current \
-    --repository=${REPOSITORY}/current/musl \
-    -r /target \
-    ${BASEPKG}
+RUN apk add wget ca-certificates
 
-# 3) configure and clean up the final image
+ARG ARCH=x86_64
+ARG MUSL=musl
+ARG XBPS_ARCH=${ARCH}-${MUSL}
+ARG REPO=https://alpha.de.repo.voidlinux.org
+
+RUN wget -q -O- ${REPO}/static/xbps-static-latest.${ARCH}-musl.tar.xz | tar xfJ -
+RUN mkdir -p void/var/db/xbps && cp -r /var/db/xbps/keys/ void/var/db/xbps/
+RUN xbps-install -Sy -R ${REPO}/current/${MUSL} -r void base-files xbps busybox-huge
+
+RUN for i in $(chroot void busybox | tail -n+$(expr 1 + $(chroot void busybox | grep -n "^Currently" | cut -d: -f1)) | sed "s/,//g" | xargs echo); do \
+  ln -s /usr/bin/busybox void/usr/bin/$i; \
+done
+
+RUN mkdir void/etc/ssl/certs && chroot void update-ca-certificates --fresh
+RUN chroot void xbps-reconfigure -a
+
+RUN chroot void sh -c 'xbps-rindex -c /var/db/xbps/htt*'
+RUN rm -fr void/var/cache/xbps void/usr/share/man/*
+
 FROM scratch
-COPY --from=stage1 /target /
-RUN xbps-reconfigure -a && \
-  rm -r /var/cache/xbps
 
-CMD ["/bin/sh"]
+ARG ARCH=x86_64
+ARG MUSL=musl
+ARG XBPS_ARCH=${ARCH}-${MUSL}
+ENV XBPS_ARCH=$XBPS_ARCH
+
+COPY --from=void-build /void /
+CMD ["sh"]

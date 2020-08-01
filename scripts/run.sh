@@ -33,23 +33,6 @@ f1 () {
   done
 }
 
-#f6 () {
-#echo "Starting Ephemerial Host Network Container. Working dir mounted under /host"
-#if [[ -z $1 && -z $2 && -z $3 ]]; then
-#    echo "usage './run.sh repo image:tag cmd' ie './run.sh schmillin parrot:latest zsh'"
-#    exit 1
-#fi
-#docker run --rm -ti --network host -v $PWD:/host $1/$2 $3
-#}
-
-#f7 () {
-#echo "Starting Ephemerial Pod in $(kubectl config current-context)"
-#if [[ -z $1 && -z $2 && -z $3 ]]; then
-#    echo "usage './run.sh repo image:tag cmd' ie './run-kube.sh schmillin parrot:latest zsh'"
-#    exit 1
-#fi
-#kubectl run -i -rm --restart=Never --tty $2 --image=$1/$2 -- $3
-#}
 f2 () {
   docker images --filter "dangling=false"
 }
@@ -67,16 +50,11 @@ f3 () {
   chmod +x * cd ..
 }
 
-f4 () {
-  ./docker-clean
-}
-
 echo "Enter Choice:
 
 1) Run a ephemeral container
 2) List local images
-3) Container Tools
-4) Docker Kill and Clean"
+3) Download tools"
 
 read choice
 
