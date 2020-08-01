@@ -42,12 +42,12 @@ f3 () {
   wget -q https://raw.githubusercontent.com/deluan/zsh-in-docker/master/zsh-in-docker.sh
   wget -q https://raw.githubusercontent.com/ZZROTDesign/docker-clean/v2.0.4/docker-clean
   wget -q https://github.com/genuinetools/img/releases/download/v0.5.10/img-linux-amd64
-  wget -qO- https://github.com/jesseduffield/lazydocker/releases/download/v0.9/lazydocker_0.9_Linux_x86_64.tar.gz | tar xvz -
-  wget -qO- https://github.com/derailed/k9s/releases/download/v0.21.4/k9s_Linux_x86_64.tar.gz | tar xvz -
+  wget -qc https://github.com/jesseduffield/lazydocker/releases/download/v0.9/lazydocker_0.9_Linux_x86_64.tar.gz -O - | tar -xz
+  wget -qc https://github.com/derailed/k9s/releases/download/v0.21.4/k9s_Linux_x86_64.tar.gz -O - | tar -xz
   wget -q https://github.com/lensapp/lens/releases/download/v3.5.1/Lens-3.5.1.AppImage
   wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-  wget -q https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.tar.gz | tar xvz -
-  chmod +x * cd ..
+  wget -qc https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.tar.gz -O - | tar -xz
+  chmod +x *
 }
 
 echo "Enter Choice:
