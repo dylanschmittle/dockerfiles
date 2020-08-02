@@ -30,5 +30,17 @@ ARG XBPS_ARCH=${ARCH}-${MUSL}
 ENV XBPS_ARCH=$XBPS_ARCH
 
 COPY --from=void-build /void /
-RUN xbps-install -Syu && xbps-install zsh 
-CMD ["sh"]
+RUN xbps-install -A -Syu && xbps-install -A -Sy sudo kitty-terminfo kitty unibilium
+
+RUN echo "ID=void" > /etc/os-release
+ADD ./zsh-install.sh ./zsh-install.sh
+RUN chmod +x zsh-install.sh && ./zsh-install.sh \
+    -p aws -p npm -p pip -p git -p python -p tig -p python \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions \
+    -p https://github.com/zsh-users/zsh-syntax-highlighting \
+    -p https://github.com/zsh-users/zsh-history-substring-search
+# ADD ./p10k.zsh /root/.p10k.zsh
+RUN echo "export TERM=\"xterm-256color\"" >> /root/.zshrc
+ENV TERM=xterm-256color
+ENTRYPOINT zsh $@

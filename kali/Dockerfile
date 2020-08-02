@@ -12,6 +12,4 @@ RUN chmod +x zsh-install.sh && ./zsh-install.sh \
     -p https://github.com/zsh-users/zsh-syntax-highlighting \
     -p https://github.com/zsh-users/zsh-history-substring-search
 ADD ./p10k.zsh /root/.p10k.zsh
-
-
 ENTRYPOINT zsh $@

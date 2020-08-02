@@ -68,6 +68,10 @@ install_dependencies() {
             $Sudo pacman --noconfirm -Syu
             $Sudo pacman --noconfirm -S git curl zsh wget perl-datetime-locale perl-locale-codes
         ;;
+        void)
+            $Sudo xbps-install -A -Syu 
+            $Sudo xbps-install -A -Sy git curl zsh wget perl-Encode-Locale
+        ;;
         *)
             $Sudo apt-get update
             $Sudo apt-get -y install git curl wget zsh locales locales-all

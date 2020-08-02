@@ -7,14 +7,15 @@ RUN set -ex \
     && apk update \
     && apk upgrade \
     && apk add --no-cache \
-    aws-cli \
     acmetool \
-    aws-cli-zsh-completion \
     apache2-utils \
+    aws-cli \
+    aws-cli-zsh-completion \
     bash \
     bind-tools \
     bird \
     bridge-utils \
+    build-base \
     busybox-extras \
     byobu \
     conntrack-tools \
@@ -23,8 +24,8 @@ RUN set -ex \
     drill \
     ethtool \
     file\
-    fzf \
     fping \
+    fzf \
     httpie \
     iftop \
     iperf \
@@ -38,54 +39,43 @@ RUN set -ex \
     k9s \
     libc6-compat \
     liboping \
+    mitmproxy \
     mtr \
     mycli \
+    neovim \
     net-snmp-tools \
     netcat-openbsd \
     nftables \
     ngrep \
     nmap \
-    npm \
     nmap-nping \
-    mitmproxy \
+    npm \
+    openssh-client \
     openssl \
-    py-crypto \
-    py3-pip \
-    pgcli \
     pdsh \
     pgbouncer \
-    ripgrep \
+    postgresql \
+    py-crypto \
+    py3-pip \
     ranger \
+    ripgrep \
+    s3cmd \
     scapy \
     socat \
     strace \
-    s3cmd \
-    tinc \
-    tmux \
     tcpdump \
     tcptraceroute \
-    tshark \
     tig \
+    tinc \
+    tmux \
+    tshark \
+    unzip \
     util-linux \
-    neovim \
     websocat \
     wireguard-tools \
-    zsh \
-    build-base \
-    unzip \
-    openssh-client
+    zsh
 
-RUN pip3 install virtualenvwrapper
-
-ADD ./zsh-install.sh ./zsh-install.sh
-RUN chmod +x zsh-install.sh && ./zsh-install.sh \
-    -p aws -p npm -p pip -p git -p helm -p python -p tig -p python \
-    -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper \
-    -p https://github.com/zsh-users/zsh-autosuggestions \
-    -p https://github.com/zsh-users/zsh-completions \
-    -p https://github.com/zsh-users/zsh-syntax-highlighting \
-    -p https://github.com/zsh-users/zsh-history-substring-search
-
+RUN pip3 install virtualenvwrapper pgcli
 # apparmor issue #14140
 RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 # Installing ctop - top-like container monitor
@@ -96,8 +86,13 @@ RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -
 # Installing helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
+ADD ./zsh-install.sh ./zsh-install.sh
+RUN chmod +x zsh-install.sh && ./zsh-install.sh \
+    -p aws -p npm -p pip -p git -p helm -p python -p tig -p python \
+    -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions \
+    -p https://github.com/zsh-users/zsh-syntax-highlighting \
+    -p https://github.com/zsh-users/zsh-history-substring-search
 ADD ./p10k.zsh /root/.p10k.zsh
-#ADD ./zshrc /root/.zshrc
-
-
 ENTRYPOINT zsh $@
