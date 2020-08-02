@@ -2,8 +2,22 @@ FROM parrotsec/core:rolling
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install components
-RUN apt-get update && apt-get -y install wget apt-utils parrot-pico && apt-get -y dist-upgrade && apt-get -y install parrot-mini parrot-tools-cloud && rm -rf /var/lib/apt/lists/*
-RUN apt-get install -y nmap helm python-virtualenvwrapper zsh ncat ndiff dnsutils netcat telnet; rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install apt-utils && apt-get -y dist-upgrade && \
+    apt-get -y install \
+    dnsutils \
+    helm \
+    ncat \
+    ndiff \
+    netcat \
+    nmap \
+    parrot-mini \
+    parrot-pico \
+    parrot-tools-cloud \
+    python-virtualenvwrapper \
+    telnet \
+    wget \
+    zsh \
+    && rm -rf /var/lib/apt/lists/*
 
 ADD ./zsh-install.sh ./zsh-install.sh
 RUN chmod +x zsh-install.sh && ./zsh-install.sh \

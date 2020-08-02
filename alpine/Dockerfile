@@ -22,10 +22,12 @@ RUN set -ex \
     curl \
     dhcping \
     drill \
+    ebtables \
     ethtool \
     file\
     fping \
     fzf \
+    graphviz \
     httpie \
     iftop \
     iperf \
@@ -54,14 +56,19 @@ RUN set -ex \
     openssl \
     pdsh \
     pgbouncer \
+    pgcli \
+    pgbouncer \
     postgresql \
     py-crypto \
+    py-gnuplot \
     py3-pip \
+    pyx \
     ranger \
     ripgrep \
     s3cmd \
     scapy \
     socat \
+    sox \
     strace \
     tcpdump \
     tcptraceroute \
@@ -75,7 +82,7 @@ RUN set -ex \
     wireguard-tools \
     zsh
 
-RUN pip3 install virtualenvwrapper pgcli
+RUN pip3 install virtualenvwrapper
 # apparmor issue #14140
 RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 # Installing ctop - top-like container monitor
