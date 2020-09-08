@@ -1,4 +1,4 @@
-FROM archlinux
+FROM docker.io/library/archlinux:latest
 
 ENV EDITOR=nvim
 ENV TERM=xterm-256color
@@ -6,7 +6,7 @@ ENV TERM=xterm-256color
 RUN curl -fs https://blackarch.org/strap.sh > /root/strap.sh \
     && echo '9f770789df3b7803105e5fbc19212889674cd503 /root/strap.sh' sha1sum -c \
     && chmod +x /root/strap.sh && /root/strap.sh \
-    && pacman -S --noconfirm yay \
+    && pacman -Syu --noconfirm yay \
     base-devel \
     bind-tools \
     git \
@@ -15,7 +15,7 @@ RUN curl -fs https://blackarch.org/strap.sh > /root/strap.sh \
     net-tools \
     sudo neovim \
     wget \
-    zsh
+    zsh 
 
 ADD ./zsh-install.sh ./zsh-install.sh
 RUN chmod +x zsh-install.sh && ./zsh-install.sh \

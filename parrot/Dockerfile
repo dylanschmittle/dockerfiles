@@ -1,4 +1,4 @@
-FROM parrotsec/core:rolling
+FROM docker.io/parrotsec/core:rolling
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install components

@@ -1,0 +1,10 @@
+FROM docker.io/library/fedora:latest
+
+RUN sudo dnf update -y && \
+sudo dnf install -y alsa-utils gdk-pixbuf2 libXScrnSaver gtk3 libX11-xcb sssd-client libxkbcommon-x11 nss nss-util xorg-x11-xkb-extras xorg-x11-xkb-utils && \
+sudo dnf clean all && \
+sudo rm -rf /var/cache/yum
+
+COPY app.AppImage /app/app.AppImage
+RUN cd /app && ./app.AppImage --appimage-extract && mv squashfs-root/* /app && cp -r -n * /
+ENTRYPOINT sh ./AppRun --no-sandbox $@

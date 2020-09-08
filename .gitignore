@@ -5,3 +5,4 @@ scripts/bin/
 */zsh-install.sh
 !scripts/p10k.zsh
 !scripts/zsh-install.sh
+wg-ui/

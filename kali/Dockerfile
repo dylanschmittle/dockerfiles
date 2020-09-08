@@ -1,4 +1,4 @@
-FROM kalilinux/kali-rolling
+FROM docker.io/kalilinux/kali-rolling
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install components

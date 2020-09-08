@@ -7,7 +7,7 @@ if [[ -z $1 ]]; then
   do
     if [[ $entry != "$PWD/build-all.sh" && $entry != "$PWD/README.md" && $entry != "$PWD/scripts" ]]; then
       cd $entry
-      ../scripts/build.sh schmillin &
+      ../scripts/build.sh schmillin 
       cd ..
     fi
   done
@@ -18,7 +18,7 @@ for entry in "$PWD"/*
 do
   if [[ $entry != "$PWD/build-all.sh" && $entry != "$PWD/README.md" && $entry != "$PWD/scripts" ]]; then
     cd $entry
-    ../scripts/build.sh $1 &
+    ../scripts/build.sh $1 
     cd ..
   fi
 done
