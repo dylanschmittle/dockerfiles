@@ -6,3 +6,5 @@ scripts/bin/
 !scripts/p10k.zsh
 !scripts/zsh-install.sh
 wg-ui/
+
+vms/macOS-Simple-KVM/
