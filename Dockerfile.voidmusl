@@ -1,4 +1,4 @@
- 
+
 FROM docker.io/library/alpine:latest as void-build
 
 RUN apk add wget ca-certificates
@@ -41,6 +41,7 @@ RUN chmod +x zsh-install.sh && ./zsh-install.sh \
     -p https://github.com/zsh-users/zsh-syntax-highlighting \
     -p https://github.com/zsh-users/zsh-history-substring-search
 ADD ./p10k.zsh /root/.p10k.zsh
+ADD ./void-images.sh /root/void-images.sh
 RUN echo "export TERM=\"xterm-256color\"" >> /root/.zshrc
 ENV TERM=xterm-256color
 ENTRYPOINT /build.sh $@
