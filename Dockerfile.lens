@@ -1,0 +1,7 @@
+FROM docker.io/schmillin/x11-glibc:latest
+
+WORKDIR /app
+COPY lens-latest.sh lens-latest.sh
+RUN lens-latest.sh
+RUN ./app.AppImage --appimage-extract && mv squashfs-root/* /app && cp -r -n * /
+ENTRYPOINT sh ./AppRun --no-sandbox $@

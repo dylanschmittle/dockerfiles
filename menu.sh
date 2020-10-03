@@ -49,11 +49,15 @@ f3 () {
   chmod +x *
 }
 
+f4 () {
+  sh buildah-all.sh
+}
 echo "Enter Choice:
 
 1) Run a container
 2) List local images
-3) Download tools"
+3) Download tools
+4) Buildah All Images"
 
 read choice
 
