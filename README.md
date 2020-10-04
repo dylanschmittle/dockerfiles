@@ -18,11 +18,17 @@ docker run --rm -ti --network host -v $PWD:/host schmillin/blackarch /bin/zsh
 
 Mac OS X
 ```
-# One Liner That Pulls an Image of the OSX-KVM running on qemu inside a docker container (speed appears the same, mouse integration is better *shrug*)
 sudo {podman,docker} run --device /dev/kvm --device /dev/snd -v /tmp/.X11-unix:/tmp/.X11-unix sickcodes/docker-osx:latest
 ```
-[docker] (https://github.com/sickcodes/Docker-OSX)
 
-[qemu quickstart] (https://github.com/foxlet/macOS-Simple-KVM)
+[docker](https://github.com/sickcodes/Docker-OSX)
 
-[qemu] (https://github.com/kholia/OSX-KVM)
+- One Liner That Pulls an Image of qemu with OSX
+- speed appears the same, cpu/ram/screen all adjusted fine
+- mouse integration is better *shrug* on wayland atleast, 
+- adding ssh and going headless also worked fine
+- usb over spice was operational, did not test audio through it
+
+[qemu quickstart](https://github.com/foxlet/macOS-Simple-KVM)
+
+[qemu](https://github.com/kholia/OSX-KVM)
