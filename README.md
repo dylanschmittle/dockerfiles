@@ -23,6 +23,7 @@ sudo {podman,docker} run --device /dev/kvm --device /dev/snd -v /tmp/.X11-unix:/
 
 [docker](https://github.com/sickcodes/Docker-OSX)
 
+- podman was used, i assume docker works fine, its more stable
 - One Liner That Pulls an Image of qemu with OSX
 - speed appears the same, cpu/ram/screen all adjusted fine
 - mouse integration is better *shrug* on wayland atleast, 
