@@ -7,6 +7,7 @@ RUN set -ex \
     && apk update \
     && apk upgrade \
     && apk add --no-cache \
+    6tunnel \
     acmetool \
     apache2-utils \
     aws-cli \
@@ -20,15 +21,22 @@ RUN set -ex \
     byobu \
     conntrack-tools \
     curl \
+    corkscrew \
+    cjdns \
+    cutter \
     dhcping \
     drill \
+    dnsenum \
     ebtables \
     ethtool \
     file\
     fping \
     fzf \
+    fwknop
     graphviz \
+    gobuster \
     httpie \
+    igmpproxy \
     iftop \
     iperf \
     iproute2 \
@@ -37,13 +45,17 @@ RUN set -ex \
     iptraf-ng \
     iputils \
     ipvsadm \
+    iodine \
     jq \
     k9s \
+    kubectl \
+    kamene \
     libc6-compat \
     liboping \
     mitmproxy \
     mtr \
     mycli \
+    masscan \
     neovim \
     net-snmp-tools \
     netcat-openbsd \
@@ -52,9 +64,12 @@ RUN set -ex \
     nmap \
     nmap-nping \
     npm \
+    nsd \
     openssh-client \
     openssl \
+    ptunnel \
     pdsh \
+    pdnsd \
     pgbouncer \
     pgcli \
     pgbouncer \
@@ -68,13 +83,18 @@ RUN set -ex \
     socat \
     sox \
     strace \
+    sslstrip \
+    sslscan \
+    sniffglue \
     tcpdump \
     tcptraceroute \
+    tcpreplay \
     tig \
     tinc \
     tmux \
     tshark \
     unzip \
+    yrd \
     util-linux \
     websocat \
     wireguard-tools \
