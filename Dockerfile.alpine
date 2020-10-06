@@ -111,6 +111,40 @@ RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -
 # Installing helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
+RUN apk -add --no-cache
+    bash \
+    xz \
+    git \
+    patch \
+    make \
+    python3 \
+    gcc \
+    libc-dev \
+    pkgconf \
+    linux-headers \
+    glib-dev glib-static \
+    zlib-dev zlib-static && cd / \
+    git clone https://github.com/ziglang/qemu-static \
+    && mv qemu-static work
+    
+WORKDIR /work
+COPY command/base command/base
+COPY command/fetch command/fetch
+RUN /work/command/fetch
+COPY command/extract command/extract
+RUN /work/command/extract
+COPY patch patch
+COPY command/patch command/patch
+RUN /work/command/patch
+COPY command/configure command/configure
+RUN /work/command/configure
+COPY command/make command/make
+RUN /work/command/make
+COPY command/install command/install
+RUN /work/command/install
+COPY command/package command/package
+RUN /work/command/package
+
 ADD ./zsh-install.sh ./zsh-install.sh
 RUN chmod +x zsh-install.sh && ./zsh-install.sh \
     -p aws -p npm -p pip -p git -p helm -p python -p tig -p python \
