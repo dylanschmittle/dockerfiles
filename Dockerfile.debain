@@ -1,0 +1,59 @@
+FROM debian:latest
+# Basic Debain Template
+ENV DEBIAN_FRONTEND noninteractive
+# - Build or package most software
+# - Run As User (sudo if needed)
+# - Locale and Env Setup
+##########################################
+# Base
+RUN apt update && apt install -y
+# Manipulation
+    gawk \
+    texinfo \
+    diffstat \
+# Compression
+    unzip \
+    cpio \
+    xz-utils \
+# Build
+    debootstrap \
+    debianutils \
+    gcc-multilib \
+    build-essential \
+# Binary
+    libelf-dev \
+    chrpath \
+# Network
+    socat \
+    wget \
+    iputils-ping \
+# Python
+    python \
+    python3 \
+    python3-pip \
+    python3-pexpect \
+# Math
+    libgmp-dev \
+    libmpc-dev \
+# Userland
+    vim \
+    sudo \
+    git-core \
+    locales
+# Locale
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+RUN update-locale LANG=en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LC_CTYPE en_US.UTF-8
+# User
+RUN useradd -ms /bin/bash builder
+RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER builder
+# Path
+COPY env /etc/env
+RUN echo "PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"" >> /home/builder/.bashrc
+RUN echo ". /etc/env" >> /home/builder/.bashrc
+# Entrypoint
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["bash"]
