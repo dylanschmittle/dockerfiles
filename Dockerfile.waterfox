@@ -1,0 +1,36 @@
+FROM debian:latest
+# Basic Debain Template
+ENV DEBIAN_FRONTEND noninteractive
+# - Build or package most software
+# - Run As User (sudo if needed)
+# - Locale and Env Setup
+##########################################
+# Base
+RUN apt update && apt install -y \
+    wget \
+    tar \
+    vim \
+    sudo \
+    locales
+
+RUN wget -L https://cdn.waterfox.net/releases/linux64/installer/waterfox-current-2020.09.en-US.linux-x86_64.tar.bz2 -O waterfox.tar.bz2 && tar xvf waterfox.tar.bz2 && rm waterfox.tar.bz2
+
+
+# Locale
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+RUN update-locale LANG=en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LC_CTYPE en_US.UTF-8
+# User
+RUN useradd -ms /bin/bash waterfox
+RUN echo "waterfox ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER waterfox
+# Path
+COPY env /etc/env
+RUN echo "PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"" >> /home/waterfox/.bashrc
+RUN echo ". /etc/env" >> /home/waterfox/.bashrc
+# Entrypoint
+ENTRYPOINT ["/bin/sh", "-c"]
+WORKDIR /waterfox
+CMD ["waterfox"]
