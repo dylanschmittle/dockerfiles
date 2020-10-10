@@ -1,7 +1,19 @@
-X11 example
+X11 (Root X11 and Host Networking)
 
 ```
 docker run --net=host --env="DISPLAY" -it --volume="$HOME/.Xauthority:/root/.Xauthority:rw" docker.io/schmillin/x11-glibc:latest
+```
+
+X11 (Container Networking and Temp X11)
+
+```
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix firefox
+```
+
+X11 (Xauthority Net Pid and IPC from Host)
+
+```
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix firefox -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host --pid=host --ipc=host
 ```
 
 Kube Example
