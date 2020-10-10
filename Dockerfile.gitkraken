@@ -6,15 +6,13 @@ ENV DEBIAN_FRONTEND noninteractive
 # - Locale and Env Setup
 ##########################################
 # Base
-RUN apt update && apt install -y
-# Network
+RUN apt update && apt install -y \
     wget \
-# Userland
     vim \
     sudo \
     locales
 
-RUN wget -L https://www.gitkraken.com/download/linux-deb -O gitkraken.deb && apt install ./gitkraken.deb && rm gitkraken.deb
+RUN wget -L https://release.gitkraken.com/linux/gitkraken-amd64.deb -O gitkraken.deb && apt install -y ./gitkraken.deb && rm gitkraken.deb
 
 # Locale
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
