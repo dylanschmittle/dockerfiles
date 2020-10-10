@@ -1,0 +1,35 @@
+FROM debian:latest
+# Basic Debain Template
+ENV DEBIAN_FRONTEND noninteractive
+# - Build or package most software
+# - Run As User (sudo if needed)
+# - Locale and Env Setup
+##########################################
+# Base
+RUN apt update && apt install -y
+# Network
+    wget \
+# Userland
+    vim \
+    sudo \
+    locales
+
+RUN wget -L https://www.gitkraken.com/download/linux-deb -O gitkraken.deb && apt install ./gitkraken.deb && rm gitkraken.deb
+
+# Locale
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+RUN update-locale LANG=en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LC_CTYPE en_US.UTF-8
+# User
+RUN useradd -ms /bin/bash gitkraken
+RUN echo "gitkraken ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER gitkraken
+# Path
+COPY env /etc/env
+RUN echo "PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"" >> /home/gitkraken/.bashrc
+RUN echo ". /etc/env" >> /home/gitkraken/.bashrc
+# Entrypoint
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["gitkraken"]
