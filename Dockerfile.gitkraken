@@ -27,7 +27,7 @@ USER gitkraken
 # Path
 COPY env /etc/env
 RUN echo "PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"" >> /home/gitkraken/.bashrc
-RUN echo ". /etc/env" >> /home/gitkraken/.bashrc
+#RUN echo ". /etc/env" >> /home/gitkraken/.bashrc
 # Entrypoint
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["gitkraken"]
