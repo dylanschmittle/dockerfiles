@@ -12,6 +12,7 @@ RUN set -ex \
     apache2-utils \
     aws-cli \
     aws-cli-zsh-completion \
+    apr-scan \
     bash \
     bind-tools \
     bird \
@@ -53,7 +54,6 @@ RUN set -ex \
     liboping \
     mitmproxy \
     mtr \
-    mycli \
     masscan \
     neovim \
     net-snmp-tools \
@@ -69,9 +69,6 @@ RUN set -ex \
     net-tools \
     pdsh \
     pdnsd \
-    pgbouncer \
-    pgcli \
-    pgbouncer \
     postgresql \
     py3-cryptography \
     py3-pip \
@@ -83,7 +80,6 @@ RUN set -ex \
     sox \
     strace \
     sslscan \
-    sniffglue \
     tcpdump \
     tcptraceroute \
     tcpreplay \
