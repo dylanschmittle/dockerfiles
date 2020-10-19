@@ -1,0 +1,116 @@
+version: '2'
+services:
+  trilium:
+    image: zadam/trilium:latest
+    restart: always
+    environment:
+      - TRILIUM_DATA_DIR=/data
+#    labels:
+#      - traefik.backend=trilium
+#      - traefik.frontend.rule=Host:trilium.example.com
+#      - traefik.docker.network=web
+#      - traefik.port=8080
+    ports:
+      - "9090:8080"
+    volumes:
+      - trilium:/data
+    networks:
+      - internal
+#      - web
+  code-server:
+    image: linuxserver/code-server
+    container_name: code-server
+#    labels:
+#      - traefik.backend=code-server
+#      - traefik.frontend.rule=code-server.example.com
+#      - traefik.docker.network=web
+#      - traefik.port=8443
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - code-server:/config
+    ports:
+      - "8443:8443"
+    restart: unless-stopped 
+    networks:
+      - internal
+#      - web
+  quassel-core:
+    image: linuxserver/quassel-core
+    container_name: quassel-core
+    labels:
+      - traefik.backend=quassel-core
+      - traefik.frontend.rule=Host:quassel-core.example.com
+      - traefik.docker.network=web
+      - traefik.port=4242
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - quassel-core:/config
+    ports:
+      - "4242:4242"
+    networks:
+      - internal
+      - web
+    restart: unless-stopped
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    labels:
+      - traefik.backend=wireguard
+      - traefik.frontend.rule=Host:wireguard.example.com
+      - traefik.docker.network=web
+      - traefik.port=51820
+    environment:
+      - PUID=1000
+      - PGID=1000      
+      - TZ=America/New_York
+      - SERVERURL=wireguard.example.com
+      - SERVERPORT=51820 
+      - PEERS=5 
+      - PEERDNS=auto 
+    volumes:
+      - wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    restart: unless-stopped
+    networks:
+      - internal
+      - web
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev:v3.3.5
+    restart: always
+    environment:
+      - TIMEOUT=300
+      - TZ=UTC
+      - METHOD=aes-256-gcm
+      - PASSWORD_SECRET=!changeme!
+    labels:
+      - traefik.backend=shadownsocks
+      - traefik.frontend.rule=Host:shadowsocks.example.com
+      - traefik.docker.network=web
+      - traefik.port=13368
+    ports:
+      - "13368:8388/udp"
+      - "13368:8388/tcp"
+    networks:
+#      - internal
+      - web
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+volumes:
+  trilium:
+  quassel-core:
+  code-server:
+  wireguard:
