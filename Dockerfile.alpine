@@ -73,6 +73,7 @@ RUN set -ex \
     net-tools \
     pdsh \
     pdnsd \
+    pgbouncer \
     postgresql \
     py3-cryptography \
     py3-pip \
@@ -124,12 +125,8 @@ RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 |
 
 
 ADD ./zsh-install.sh ./zsh-install.sh
-RUN chmod +x zsh-install.sh && ./zsh-install.sh \
-    -p aws -p npm -p pip -p git -p helm -p python -p tig -p python \
-    -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper \
-    -p https://github.com/zsh-users/zsh-autosuggestions \
-    -p https://github.com/zsh-users/zsh-completions \
-    -p https://github.com/zsh-users/zsh-syntax-highlighting \
-    -p https://github.com/zsh-users/zsh-history-substring-search
+
+RUN touch zsh-install-opt.sh && echo "./zsh-install.sh -p aws -p npm -p pip -p git -p helm -p python -p tig -p python -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper -p https://github.com/zsh-users/zsh-autosuggestions -p https://github.com/zsh-users/zsh-completions -p https://github.com/zsh-users/zsh-syntax-highlighting -p https://github.com/zsh-users/zsh-history-substring-search" >> zsh-install-opt.sh && chmod +x zsh-install*
 ADD p10k.zsh /root/.p10k.zsh
+
 ENTRYPOINT zsh $@
