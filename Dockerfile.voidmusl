@@ -1,4 +1,3 @@
-
 FROM docker.io/library/alpine:latest as void-build
 
 RUN apk add wget ca-certificates
