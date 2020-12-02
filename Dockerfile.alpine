@@ -4,8 +4,8 @@ RUN set -ex \
     && echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-    && apk update \
-    && apk upgrade \
+    && apk update --no-cache \
+    && apk upgrade --no-cache \
     && apk add --no-cache \
     6tunnel \
     acmetool \
@@ -115,6 +115,8 @@ RUN set -ex \
     zlib-dev zlib-static \
     zsh
 
+#RUN git clone https://github.com/netsniff-ng/netsniff-ng && cd netsniff-ng && ./configure && make && make install
+
 RUN pip3 install virtualenvwrapper
 
 # apparmor issue #14140
@@ -122,7 +124,6 @@ RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 
 # Installing helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-
 
 ADD ./zsh-install.sh ./zsh-install.sh
 

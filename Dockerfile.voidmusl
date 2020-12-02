@@ -27,6 +27,7 @@ ARG ARCH=x86_64
 ARG MUSL=musl
 ARG XBPS_ARCH=${ARCH}-${MUSL}
 ENV XBPS_ARCH=$XBPS_ARCH
+ENV TERM=xterm-256color
 
 COPY --from=void-build /void /
 RUN xbps-install -A -Syu && xbps-install -A -Sy sudo make base-devel
@@ -42,5 +43,6 @@ RUN chmod +x zsh-install.sh && ./zsh-install.sh \
 ADD ./p10k.zsh /root/.p10k.zsh
 ADD ./void-images.sh /root/void-images.sh
 RUN echo "export TERM=\"xterm-256color\"" >> /root/.zshrc
-ENV TERM=xterm-256color
+
+
 ENTRYPOINT /build.sh $@
