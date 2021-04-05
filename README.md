@@ -29,8 +29,27 @@ docker run --rm -ti --network host -v $PWD:/host schmillin/blackarch /bin/zsh
 ```
 
 Mac OS X
+
+Especially of interest is to allow an entirely unprivileged container user. Can be tested with docker run --cap-drop=all --security-opt=no-new-privileges [...]. Steps needed:
+
+Avoid sudo
+Use --group-add kvm --group-add audio instead of chown [...] /dev/kvm /dev/snd.
+Set up an unprivileged sshd.
+Working x11docker commands so far:
+
+This commands runs with an entirely unprivileged container user (with x11docker's default --cap-drop=ALL --security-opt=no-new-privileges):
 ```
-sudo {podman,docker} run --device /dev/kvm --device /dev/snd -v /tmp/.X11-unix:/tmp/.X11-unix sickcodes/docker-osx:latest
+x11docker --share /dev/kvm --group-add kvm --alsa -- -p 50922:10022 -- sickcodes/docker-osx:latest
+```
+
+This command sets up a privileged container user (otherwise failing with sshd errors):
+
+```
+x11docker --share /dev/kvm --group-add kvm --user=RETAIN --cap-default --alsa -- -p 50922:10022 -- sickcodes/docker-osx:auto
+```
+
+```
+{podman,docker} run --device /dev/kvm --device /dev/snd -v /tmp/.X11-unix:/tmp/.X11-unix sickcodes/docker-osx:latest
 ```
 
 [docker](https://github.com/sickcodes/Docker-OSX)
