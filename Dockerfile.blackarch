@@ -4,7 +4,7 @@ ENV EDITOR=nvim
 ENV TERM=xterm-256color
 
 RUN curl -fs https://blackarch.org/strap.sh > /root/strap.sh \
-    && echo '9f770789df3b7803105e5fbc19212889674cd503 /root/strap.sh' sha1sum -c \
+    && echo 'd062038042c5f141755ea39dbd615e6ff9e23121 /root/strap.sh' sha1sum -c \
     && chmod +x /root/strap.sh && /root/strap.sh \
     && pacman -Syu --noconfirm yay \
     base-devel \
