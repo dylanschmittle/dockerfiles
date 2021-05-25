@@ -2,7 +2,7 @@ FROM docker.io/parrotsec/core:rolling
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install components
-RUN apt-get update && apt-get -y install apt-utils && apt-get -y dist-upgrade && \
+RUN apt-get update && apt-get -y dist-upgrade && \
     apt-get -y install \
     dnsutils \
     helm \
