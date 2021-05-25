@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y dist-upgrade && \
     apt-get -y install \
     dnsutils \
-    helm \
     ncat \
     ndiff \
     netcat \
@@ -13,7 +12,6 @@ RUN apt-get update && apt-get -y dist-upgrade && \
     parrot-mini \
     parrot-pico \
     parrot-tools-cloud \
-    python-virtualenvwrapper \
     telnet \
     wget \
     zsh \
