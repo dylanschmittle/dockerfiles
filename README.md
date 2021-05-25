@@ -1,3 +1,11 @@
+
+
+### docker-compose.yaml
+
+- IRC Bouncer, VPN, Proxy, VScode, Trillium notes, and Trafik
+
+### images
+
 X11 (Root X11 and Host Networking)
 
 ```
@@ -57,7 +65,7 @@ x11docker --share /dev/kvm --group-add kvm --user=RETAIN --cap-default --alsa --
 - podman was used, i assume docker works fine, its more stable
 - One Liner That Pulls an Image of qemu with OSX
 - speed appears the same, cpu/ram/screen all adjusted fine
-- mouse integration is better *shrug* on wayland atleast, 
+- mouse integration is better *shrug* on wayland atleast,
 - adding ssh and going headless also worked fine
 - usb over spice was operational, did not test audio through it
 
