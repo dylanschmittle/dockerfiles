@@ -25,9 +25,9 @@ RUN useradd -ms /bin/bash gitkraken
 RUN echo "gitkraken ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER gitkraken
 # Path
-COPY env /etc/env
+#COPY env /etc/env
 RUN echo "PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"" >> /home/gitkraken/.bashrc
-#RUN echo ". /etc/env" >> /home/gitkraken/.bashrc
+RUN echo ". /etc/env" >> /home/gitkraken/.bashrc
 # Entrypoint
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["gitkraken"]
