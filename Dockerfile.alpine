@@ -133,6 +133,9 @@ RUN curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/st
 
 ADD ./zsh-install.sh ./zsh-install.sh
 
+## Get AWS TLS Certs for DB's
+RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+
 RUN touch zsh-install-opt.sh && echo "./zsh-install.sh -p aws -p npm -p pip -p git -p helm -p python -p tig -p python -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper -p https://github.com/zsh-users/zsh-autosuggestions -p https://github.com/zsh-users/zsh-completions -p https://github.com/zsh-users/zsh-syntax-highlighting -p https://github.com/zsh-users/zsh-history-substring-search" >> zsh-install-opt.sh && chmod +x zsh-install*
 ADD p10k.zsh /root/.p10k.zsh
 
