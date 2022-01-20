@@ -48,7 +48,7 @@ RUN set -ex \
     ipvsadm \
     iodine \
     jq \
-    k9s \
+#   k9s \
     kubectl \
     libc6-compat \
     liboping \
