@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:3.12
+FROM docker.io/library/alpine:3.14
 
 RUN set -ex \
     && echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
@@ -48,7 +48,6 @@ RUN set -ex \
     ipvsadm \
     iodine \
     jq \
-#   k9s \
     kubectl \
     libc6-compat \
     liboping \
@@ -113,7 +112,7 @@ RUN set -ex \
     linux-headers \
     glib-dev glib-static \
     zlib-dev zlib-static \
-    zsh
+    zsh \
 
 #RUN git clone https://github.com/netsniff-ng/netsniff-ng && cd netsniff-ng && ./configure && make && make install
 
