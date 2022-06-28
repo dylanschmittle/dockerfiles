@@ -16,19 +16,19 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - uses: actions/checkout@v2
-      - uses: redhat-actions/buildah-build@v2
-        with:
-          image: dylanschmitte:alpine
-          tags: latest ${{ github.sha }}
-          containerfiles: |
-            ./Dockerfile.alpine
-      - uses: redhat-actions/podman-login@v1
-        with:
-          registry: ${{ secrets.REGISTRY }}
-          username: ${{ secrets.REGISTRY_USER }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      - uses: redhat-actions/push-to-registry@v2
-        with:
-          image: ${{ steps.build-image.outputs.image }}
-          tags: ${{ steps.build-image.outputs.tags }}
-          registry: ${{ secrets.REGISTRY }}
+      # - uses: redhat-actions/buildah-build@v2
+      #   with:
+      #     image: dylanschmitte:alpine
+      #     tags: latest ${{ github.sha }}
+      #     containerfiles: |
+      #       ./Dockerfile.alpine
+      # - uses: redhat-actions/podman-login@v1
+      #   with:
+      #     registry: ${{ secrets.REGISTRY }}
+      #     username: ${{ secrets.REGISTRY_USER }}
+      #     password: ${{ secrets.REGISTRY_PASSWORD }}
+      # - uses: redhat-actions/push-to-registry@v2
+      #   with:
+      #     image: ${{ steps.build-image.outputs.image }}
+      #     tags: ${{ steps.build-image.outputs.tags }}
+      #     registry: ${{ secrets.REGISTRY }}
