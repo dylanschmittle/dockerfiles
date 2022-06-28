@@ -15,7 +15,7 @@ jobs:
           registry: ${{ secrets.REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       # - uses: redhat-actions/buildah-build@v2
       #   with:
       #     image: dylanschmitte:alpine
