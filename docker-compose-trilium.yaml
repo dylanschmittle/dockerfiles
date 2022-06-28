@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+
+  trilium:
+    build:
+      context: ./trilium
+    image: zadam/trilium
+    restart: always
+    environment:
+      - TRILIUM_DATA_DIR=./trilium/data
+    ports:
+      - "8080:8181"
+    networks:
+      - bw-services
+      - bw-autoconf
+    volumes:
+      - ./trilium/data:/data
+
+  mybunker:
+    image: bunkerity/bunkerweb:1.4.1
+    ports:
+      - 80:8282
+      - 443:3443
+    environment:
+      - AUTOCONF_MODE=yes
+      - MULTISITE=yes
+      - DNS_RESOLVERS=127.0.0.1
+      - USE_CUSTOM_HTTPS=yes
+      - CUSTOM_HTTPS_CERT=/etc/sslcerts/voidputer.hamster-goblin.ts.net.crt
+      - CUSTOM_HTTPS_KEY=/etc/sslcerts/voidputer.hamster-goblin.ts.net.key
+      - SERVER_NAME=voidputer.hamster-goblin.ts.net
+      - API_WHITELIST_IP=127.0.0.0/8 10.20.30.0/24
+    labels:
+      - "bunkerweb.AUTOCONF"
+    volumes:
+      - ./trilium/certs:/etc/sslcerts
+    networks:
+      - bw-autoconf
+      - bw-services
+
+  myautoconf:
+    image: bunkerity/bunkerweb-autoconf:1.4.1
+    volumes:
+      - bw-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - bw-autoconf
+
+volumes:
+  bw-data:
+  trilium:
+
+networks:
+  bw-autoconf:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.30.0/24
+  bw-services:
+    name: bw-services
