@@ -14,35 +14,22 @@ jobs:
       REGISTRY_USER: "schmillin"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+    - name: Docker Login
+      uses: docker/login-action@v2
+      with:
+        username: schmillin
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build Images
       run: |
         docker build . --file Dockerfile.alpine --tag alpine:$(date +%s) --tag alpine:latest --tag alpine:ci
         docker build . --file Dockerfile.voidmusl --tag voidmusl:$(date +%s) --tag voidmusl:latest --tag voidmusl:ci
         docker build . --file Dockerfile.kali --tag kali:$(date +%s) --tag kali:latest --tag kali:ci
         docker build . --file Dockerfile.blackarch --tag blackarch:$(date +%s) --tag blackarch:latest --tag blackarch:ci
-
-    - uses: docker/login-action@v2
-      with:
-        username: schmillin
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: elgohr/Publish-Docker-Github-Action@v4
-      with:
-        name: schmillin/voidmusl
-        username: schmillin
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: elgohr/Publish-Docker-Github-Action@v4
-      with:
-        name: schmillin/kali
-        username: schmillin
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: elgohr/Publish-Docker-Github-Action@v4
-      with:
-        name: schmillin/blackarch
-        username: schmillin
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: elgohr/Publish-Docker-Github-Action@v4
-      with:
-        name: schmillin/alpine
-        username: schmillin
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Push Images
+      run: |
+        docker push alpine
+        docker push voidmusl
+        docker push kali
+        docker push blackarch
