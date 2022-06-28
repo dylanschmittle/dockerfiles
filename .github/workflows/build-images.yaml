@@ -6,9 +6,9 @@ jobs:
     name: Build image
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: alpine
-      REGISTRY: docker.io/schmillin
-      REGISTRY_USER: schmillin
+      IMAGE_NAME: "alpine"
+      REGISTRY: "docker.io/schmillin"
+      REGISTRY_USER: "schmillin"
       REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - uses: redhat-actions/podman-login@v1
