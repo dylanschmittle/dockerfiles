@@ -33,7 +33,7 @@ services:
       - code-server:/config
     ports:
       - "8443:8443"
-    restart: unless-stopped 
+    restart: unless-stopped
     networks:
       - internal
 #      - web
@@ -70,12 +70,12 @@ services:
       - traefik.port=51820
     environment:
       - PUID=1000
-      - PGID=1000      
+      - PGID=1000
       - TZ=America/New_York
       - SERVERURL=wireguard.example.com
-      - SERVERPORT=51820 
-      - PEERS=5 
-      - PEERDNS=auto 
+      - SERVERPORT=51820
+      - PEERS=5
+      - PEERDNS=auto
     volumes:
       - wireguard:/config
       - /lib/modules:/lib/modules

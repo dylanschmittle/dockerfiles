@@ -23,4 +23,3 @@ netinfo () {
   netstat-nat
 }
 netinfo > "results-$(date +%s).txt"
-

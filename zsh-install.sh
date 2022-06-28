@@ -59,7 +59,7 @@ install_dependencies() {
         centos | amzn)
             $Sudo yum update -y
             $Sudo yum install -y git wget curl
-            $Sudo yum install -y ncurses-compat-libs # this is required for AMZN Linux (ref: https://github.com/emqx/emqx/issues/2503) 
+            $Sudo yum install -y ncurses-compat-libs # this is required for AMZN Linux (ref: https://github.com/emqx/emqx/issues/2503)
             $Sudo curl http://mirror.ghettoforge.org/distributions/gf/el/7/plus/x86_64/zsh-5.1-1.gf.el7.x86_64.rpm > zsh-5.1-1.gf.el7.x86_64.rpm
             $Sudo rpm -i zsh-5.1-1.gf.el7.x86_64.rpm
             $Sudo rm zsh-5.1-1.gf.el7.x86_64.rpm
@@ -69,7 +69,7 @@ install_dependencies() {
             $Sudo pacman --noconfirm -S git curl zsh wget perl-datetime-locale perl-locale-codes
         ;;
         void)
-            $Sudo xbps-install -A -Syu 
+            $Sudo xbps-install -A -Syu
             $Sudo xbps-install -A -Sy git curl zsh wget perl-Encode-Locale
         ;;
         *)
@@ -80,7 +80,7 @@ install_dependencies() {
 }
 
 zshrc_template() {
-    _HOME=$1; 
+    _HOME=$1;
     _THEME=$2; shift; shift
     _PLUGINS=$*;
 

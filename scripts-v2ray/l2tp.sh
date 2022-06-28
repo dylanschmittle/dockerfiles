@@ -57,7 +57,7 @@ get_os_info(){
     local kern=$( uname -r )
 
     echo "########## System Information ##########"
-    echo 
+    echo
     echo "CPU model            : ${cname}"
     echo "Number of cores      : ${cores}"
     echo "CPU frequency        : ${freq} MHz"
@@ -70,7 +70,7 @@ get_os_info(){
     echo "Kernel               : ${kern}"
     echo "Hostname             : ${host}"
     echo "IPv4 address         : ${IP}"
-    echo 
+    echo
     echo "########################################"
 }
 

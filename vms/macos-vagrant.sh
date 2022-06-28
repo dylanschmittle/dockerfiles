@@ -10,4 +10,3 @@ cd ..
 mkdir macos15 && cd macos15
 vagrant init ramsey/macos-catalina --box-version 1.0.0
 cd ..
-

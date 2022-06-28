@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # This is a Shell script for caddy based alpine with Docker image
-# 
+#
 # Copyright (C) 2019 - 2021 Teddysun <i@teddysun.com>
 #
 # Reference URL:

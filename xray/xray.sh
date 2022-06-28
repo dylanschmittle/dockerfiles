@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # This is a Shell script for xray based alpine with Docker image
-# 
+#
 # Copyright (C) 2019 - 2020 Teddysun <i@teddysun.com>
 #
 # Reference URL:

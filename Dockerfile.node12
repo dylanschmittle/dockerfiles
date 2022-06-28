@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:latest 
+FROM docker.io/library/alpine:latest
 
 RUN set -ex \
     && echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
@@ -10,6 +10,6 @@ RUN set -ex \
     make \
     python3 \
     yarn \
-    npm 
+    npm
 
 ENTRYPOINT sh $@

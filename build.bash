@@ -8,5 +8,3 @@ for f in ${file_list[@]}; do
   img=$(echo ${f} | cut -d'.' -f3)
   buildah bud --squash -f Dockerfile.${img} -t ${img}:latest .
 done;
-
-

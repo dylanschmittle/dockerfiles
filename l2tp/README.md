@@ -42,7 +42,7 @@ VPN_SHA2_TRUNCBUG=
 
 This will create a default user account for L2TP/IPsec VPN login, which can be used by your **multiple devices**.
 
-The IPSec PSK (pre-shared key) is specified by the `VPN_IPSEC_PSK`. 
+The IPSec PSK (pre-shared key) is specified by the `VPN_IPSEC_PSK`.
 
 The **default username** is specified in `VPN_USER`.
 

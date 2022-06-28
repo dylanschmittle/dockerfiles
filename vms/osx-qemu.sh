@@ -19,4 +19,3 @@ echo "-device ide-hd,bus=sata.4,drive=SystemDisk" >> basic.sh
 #echo "-device ide-hd,bus=sata.4,drive=SystemDisk \\" >> basic.sh
 #echo "-nographic -vnc :0 -k en-us" >> basic.sh
 #HEADLESS=1 MEM=1G CPUS=2 SYSTEM_DISK=${ver}.qcow2 ./headless.sh
-

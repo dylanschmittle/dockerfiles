@@ -1,9 +1,9 @@
 #!/bin/sh
 #
 # This is a Shell script for build multi-architectures trojan-go binary file
-# 
+#
 # Supported architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-# 
+#
 # Copyright (C) 2020 Teddysun <i@teddysun.com>
 #
 # Reference URL:
@@ -53,4 +53,3 @@ done
 chmod +x ${cur_dir}/trojan-go_linux_*
 # clean up
 cd ${cur_dir} && rm -fr trojan-go
-

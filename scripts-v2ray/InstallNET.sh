@@ -558,7 +558,7 @@ if [[ "$loaderMode" == "0" ]]; then
 
   [[ "$setInterfaceName" == "1" ]] && Add_OPTION="net.ifnames=0 biosdevname=0" || Add_OPTION=""
   [[ "$setIPv6" == "1" ]] && Add_OPTION="$Add_OPTION ipv6.disable=1"
-  
+
   lowMem || Add_OPTION="$Add_OPTION lowmem=+0"
 
   if [[ "$linux_relese" == 'debian' ]] || [[ "$linux_relese" == 'ubuntu' ]]; then
@@ -566,7 +566,7 @@ if [[ "$loaderMode" == "0" ]]; then
   elif [[ "$linux_relese" == 'centos' ]]; then
     BOOT_OPTION="ks=file://ks.cfg $Add_OPTION ksdevice=$interfaceSelect"
   fi
-  
+
   [ -n "$setConsole" ] && BOOT_OPTION="$BOOT_OPTION --- console=$setConsole"
 
   [[ "$Type" == 'InBoot' ]] && {
@@ -580,7 +580,7 @@ if [[ "$loaderMode" == "0" ]]; then
   }
 
   sed -i '$a\\n' /tmp/grub.new;
-  
+
   sed -i ''${INSERTGRUB}'i\\n' $GRUBDIR/$GRUBFILE;
   sed -i ''${INSERTGRUB}'r /tmp/grub.new' $GRUBDIR/$GRUBFILE;
   [[ -f  $GRUBDIR/grubenv ]] && sed -i 's/saved_entry/#saved_entry/g' $GRUBDIR/grubenv;
@@ -762,7 +762,7 @@ timezone --isUtc Asia/Hong_Kong
 network --bootproto=static --ip=$IPv4 --netmask=$MASK --gateway=$GATE --nameserver=$ipDNS --onboot=on
 bootloader --location=mbr --append="rhgb quiet crashkernel=auto"
 zerombr
-clearpart --all --initlabel 
+clearpart --all --initlabel
 autopart
 
 %packages

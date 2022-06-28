@@ -9,4 +9,3 @@ vagrant init peru/windows-10-enterprise-x64-eval
 echo "vagrant:vagrant" > creds.txt
 echo "VAGRANT_DEFAULT_PROVIDER=libvirt vagrant up" > start.sh
 cd ..
-

@@ -9,5 +9,3 @@ RUN go get -v github.com/Shopify/kubeaudit
 RUN go get github.com/aquasecurity/kube-bench
 RUN apt update && apt upgrade -y && apt install -y python-pip
 RUN pip install kube-hunter
-
-
