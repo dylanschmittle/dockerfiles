@@ -14,8 +14,8 @@ jobs:
       - uses: redhat-actions/podman-login@v1
         with:
           registry: ${{ secrets.REGISTRY }}
-          username: ${{ secrets.REGISTRY_USER }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
       - uses: redhat-actions/buildah-build@v2
         with:
