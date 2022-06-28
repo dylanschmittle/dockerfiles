@@ -9,7 +9,6 @@ jobs:
       IMAGE_NAME: "alpine"
       REGISTRY: "docker.io/schmillin"
       REGISTRY_USER: "schmillin"
-      REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - uses: redhat-actions/podman-login@v1
         with:
@@ -26,8 +25,8 @@ jobs:
       - uses: redhat-actions/podman-login@v1
         with:
           registry: ${{ secrets.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build-image.outputs.image }}

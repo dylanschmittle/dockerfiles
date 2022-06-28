@@ -1,10 +1,67 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
+---
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.2.0     #Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+  hooks:
+  - id: check-added-large-files
+  - id: pretty-format-json
+    args: ["--autofix"]
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-toml
+  - id: check-xml
+  - id: check-yaml
+  - id: debug-statements
+  - id: destroyed-symlinks
+  - id: detect-aws-credentials
+  - id: detect-private-key
+  - id: end-of-file-fixer
+  - id: fix-encoding-pragma
+  - id: forbid-new-submodules
+  - id: mixed-line-ending
+  - id: requirements-txt-fixer
+  - id: sort-simple-yaml
+  - id: trailing-whitespace
+
+- repo: https://github.com/golangci/golangci-lint
+  rev: v1.46.2
+  hooks:
+  - id: golangci-lint
+
+- repo: https://github.com/jumanjihouse/pre-commit-hooks
+  rev: 2.1.6     # or specific git tag
+  hooks:
+  - id: bundler-audit
+  # - id: fasterer
+  # - id: reek
+  # - id: rubocop
+  - id: script-must-have-extension
+  - id: shellcheck
+  - id: shfmt
+
+- repo: https://github.com/ansible-community/ansible-lint
+  rev: v6.2.2
+  hooks:
+  - id: ansible-lint
+    args: [-w, syntax-check]
+
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.72.1     # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+  hooks:
+  - id: terraform_fmt
+    args:
+      - --args=-recursive
+      - --args=-write=true
+      - --args=terraform/
+  - id: terraform_providers_lock
+    args:
+      - --args=terraform/
+  - id: terraform_tflint
+    args:
+    - --args=--enable-rule=terraform_documented_variables
+    - --args=--deep
+  - id: terraform_tfsec
+  - id: terraform_validate
+  - id: tfupdate
+    args:
+      - --args=provider aws

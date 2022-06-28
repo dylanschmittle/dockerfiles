@@ -7,7 +7,6 @@ RUN set -ex \
     && apk update --no-cache \
     && apk upgrade --no-cache \
     && apk add --no-cache \
-    6tunnel \
     acmetool \
     apache2-utils \
     aws-cli \
@@ -48,7 +47,7 @@ RUN set -ex \
     ipvsadm \
     iodine \
     jq \
-#   k9s \
+    k9s \
     kubectl \
     libc6-compat \
     liboping \
