@@ -1,0 +1,141 @@
+FROM docker.io/library/alpine:3.12
+
+RUN set -ex \
+    && echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+    && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && apk update --no-cache \
+    && apk upgrade --no-cache \
+    && apk add --no-cache \
+    acmetool \
+    apache2-utils \
+    aws-cli \
+    aws-cli-zsh-completion \
+    arp-scan \
+    bash \
+    bind-tools \
+    bird \
+    bridge-utils \
+    build-base \
+    busybox-extras \
+    byobu \
+    conntrack-tools \
+    curl \
+    corkscrew \
+    cjdns \
+    cutter \
+    dhcping \
+    drill \
+    dnsenum \
+    ebtables \
+    ethtool \
+    file\
+    fping \
+    fzf \
+    fwknop \
+    graphviz \
+    gobuster \
+    httpie \
+    igmpproxy \
+    iftop \
+    iperf \
+    iproute2 \
+    ipset \
+    iptables \
+    iptraf-ng \
+    iputils \
+    ipvsadm \
+    iodine \
+    jq \
+    k9s \
+    kubectl \
+    libc6-compat \
+    liboping \
+    mitmproxy \
+    mtr \
+    masscan \
+    neovim \
+    net-snmp-tools \
+    netcat-openbsd \
+    nftables \
+    ngrep \
+    nmap-nselibs \
+    nmap-scripts \
+    nmap-ncat \
+    nmap-nping \
+    nmap \
+    nmap-nping \
+    npm \
+    nsd \
+    openssh-client \
+    openssl \
+    net-tools \
+    pdsh \
+    pdnsd \
+    pgbouncer \
+    postgresql \
+    py3-cryptography \
+    py3-pip \
+    ranger \
+    ripgrep \
+    s3cmd \
+    scapy \
+    socat \
+    sox \
+    strace \
+    sslscan \
+    tcpdump \
+    tcptraceroute \
+    tcpreplay \
+    tig \
+    tinc \
+    tmux \
+    tshark \
+    unzip \
+    util-linux \
+    websocat \
+    wireguard-tools \
+    patchelf \
+    scanelf \
+    binutils \
+    libelf-static \
+    libelf \
+    chelf \
+    xz \
+    git \
+    patch \
+    make \
+    python3 \
+    gcc \
+    libc-dev \
+    pkgconf \
+    linux-headers \
+    glib-dev glib-static \
+    zlib-dev zlib-static \
+    zsh
+
+#RUN git clone https://github.com/netsniff-ng/netsniff-ng && cd netsniff-ng && ./configure && make && make install
+
+RUN pip3 install virtualenvwrapper
+
+# apparmor issue #14140
+# RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
+
+# Installing helm
+RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+RUN curl -LO https://github.com/tektoncd/cli/releases/download/v0.18.0/tkn_0.18.0_Linux_x86_64.tar.gz && \
+    tar xvzf tkn_0.18.0_Linux_x86_64.tar.gz -C /usr/local/bin/ tkn
+
+RUN curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz && \
+    tar xvzf openshift-client-linux.tar.gz -C /usr/local/bin oc
+
+ADD ./zsh-install.sh ./zsh-install.sh
+
+## Get AWS TLS Certs for DB's
+RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+
+RUN touch zsh-install-opt.sh && echo "./zsh-install.sh -p aws -p npm -p pip -p git -p helm -p python -p tig -p python -p fancy-ctrl-z -p colorize -p colored-man-pages -p sudo -p virtualenvwrapper -p https://github.com/zsh-users/zsh-autosuggestions -p https://github.com/zsh-users/zsh-completions -p https://github.com/zsh-users/zsh-syntax-highlighting -p https://github.com/zsh-users/zsh-history-substring-search" >> zsh-install-opt.sh && chmod +x zsh-install*
+ADD p10k.zsh /root/.p10k.zsh
+
+ENTRYPOINT zsh $@
