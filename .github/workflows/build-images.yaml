@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: redhat-actions/buildah-build@v2
         with:
-          image: alpine
+          image: dylanschmitte:alpine
           tags: latest ${{ github.sha }}
           containerfiles: |
             ./Dockerfile.alpine
