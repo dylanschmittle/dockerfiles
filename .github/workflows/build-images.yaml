@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: alpine
-      REGISTRY: docker.io/dylanschmittle
-      REGISTRY_USER: dylanschmittle
-      REGISTRY_PASSWORD: '${{ secrets.REGISTRY_REDHAT_IO_USER }}'
+      REGISTRY: docker.io
+      REGISTRY_USER: schmillin
+      REGISTRY_PASSWORD: cat-farts-SMELL-nice-n0t
     steps:
       - uses: redhat-actions/podman-login@v1
         with:
