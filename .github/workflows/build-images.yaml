@@ -9,7 +9,7 @@ jobs:
       IMAGE_NAME: alpine
       REGISTRY: docker.io/schmillin
       REGISTRY_USER: schmillin
-      REGISTRY_PASSWORD: cat-farts-SMELL-nice-n0t
+      REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - uses: redhat-actions/podman-login@v1
         with:
