@@ -5,6 +5,10 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: "alpine"
+      REGISTRY: "docker.io/schmillin"
+      REGISTRY_USER: "schmillin"
     steps:
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
